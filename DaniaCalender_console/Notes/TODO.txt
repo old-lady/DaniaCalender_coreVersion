@@ -1,0 +1,19 @@
+﻿Create calendar 
+	 den kan tage et spænd af datoer, samt enkelte datoer
+	 kan tilføje klokkesløt, hvis den ingen finder?
+	 at den kan sige fra, hvis der ingen datoer er 
+	 putte events i en egen kategori
+	 opdatere eksisterende events istedet for blot lave nye
+	 
+
+
+Extracting information
+	sige til, hvis den ingen datoer finder
+	mere intelligent finde oplysninger om hvad der sker på en dato
+		måske se på hvad der er mellem to datoer?
+			søge efter andre ord end bare datoer? sidetal? 
+		trimme og fjerne visse tegn (som det fucking \t og mange mellemrum)
+	ændre hvordan den finder datoer fra linje til ord (med streamer måske)
+
+
+Lav en metode der kan give events en efter en (til en ui en dag)
