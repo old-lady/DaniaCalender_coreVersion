@@ -8,8 +8,6 @@ namespace DaniaCalender_console
         static void Main(string[] args)
         {
             Run();
-
-            Console.ReadKey();
         }
 
         private static void Run()
@@ -23,6 +21,7 @@ It is that files path(including file extension) you need to type here.";
             Console.WriteLine(message);
             Console.WriteLine();
             Console.WriteLine("Where is your file located?");
+			
             string path = Console.ReadLine();
 
             while (!File.Exists(path))
