@@ -22,7 +22,6 @@ namespace DaniaCalender_console
             FilterEvents(this.allEvents, days);
             CalenderFile = CreateEvents(filteredEvents);
             WriteToFile(Path + ".ics", CalenderFile);
-
         }
 
         private void WriteToFile(string path, string text)
@@ -35,14 +34,14 @@ namespace DaniaCalender_console
             StringBuilder sb = new StringBuilder();
 
             // we add the start
-            //start the calendar item
+            // start the calendar item
             sb.AppendLine("BEGIN:VCALENDAR");
             sb.AppendLine("VERSION:2.0");
             sb.AppendLine("PRODID: Julia Sommer");
             sb.AppendLine("CALSCALE:GREGORIAN");
             sb.AppendLine("METHOD:PUBLISH");
 
-            //create a time zone if needed, TZID to be used in the event itself
+            // create a time zone if needed, TZID to be used in the event itself
             sb.AppendLine("BEGIN:VTIMEZONE");
             sb.AppendLine("TZID:Europe/Amsterdam");
             sb.AppendLine("BEGIN:STANDARD");
@@ -52,13 +51,12 @@ namespace DaniaCalender_console
             sb.AppendLine("END:VTIMEZONE");
 
             // add events for each tuple pair
-
-            foreach (var item in allEvents)
+			foreach (var item in allEvents)
             {
                 sb.AppendLine(CreateSingleEvent(item));
             }
 
-            //end calendar item
+            // end calendar item
             sb.AppendLine("END:VCALENDAR");
 
             return sb.ToString();
@@ -77,27 +75,25 @@ namespace DaniaCalender_console
             string Description = "";
 
             StringBuilder sb = new StringBuilder();
-            //add the event
+            
+			// add the event
             sb.AppendLine("BEGIN:VEVENT");
 
             //with time zone specified
             sb.AppendLine("DTSTART;TZID=Europe/Amsterdam:" + dateStart.ToString("yyyyMMddTHHmm00"));
             sb.AppendLine("DTEND;TZID=Europe/Amsterdam:" + DateEnd.ToString("yyyyMMddTHHmm00"));
-            //or without
+            
+			// or without
             sb.AppendLine("DTSTART:" + dateStart.ToString("yyyyMMddTHHmm00"));
             sb.AppendLine("DTEND:" + DateEnd.ToString("yyyyMMddTHHmm00"));
-
-            sb.AppendLine("SUMMARY:" + Summary + "");
+			sb.AppendLine("SUMMARY:" + Summary + "");
             sb.AppendLine("LOCATION:" + Location + "");
             sb.AppendLine("DESCRIPTION:" + Description + "");
             sb.AppendLine("PRIORITY:3");
             sb.AppendLine("END:VEVENT");
 
             return sb.ToString();
-
-
         }
-
 
         private void FilterEvents(List<(DateTime, string)> unfilteredEvents, int daysAhead)
         {
@@ -110,6 +106,5 @@ namespace DaniaCalender_console
                 }
             }
         }
-
     }
 }

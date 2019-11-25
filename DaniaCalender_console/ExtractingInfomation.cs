@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace DaniaCalender_console
 {
@@ -19,14 +18,13 @@ namespace DaniaCalender_console
             FullPath = fullPath;
             tempPath = fullPath;
 
-
-
-            allLines = ReadFile(tempPath);
+			allLines = ReadFile(tempPath);
 
             FindDates(allLines);
         }
-        private bool isItADate(string text)
+        private bool isItADate(ref string text)
         {
+			text = string.Join('/', text.Split('.', '-'));
             DateTime dateTime;
             bool isDateTime = false;
 
@@ -35,21 +33,19 @@ namespace DaniaCalender_console
         }
         private void FindDates(string[] lines)
         {
-            //List<string> results = new List<string>();
-
             for (int i = 0; i < lines.Length; i++)
             {
                 string[] words = lines[i].Trim().Split(' ');
-                if (isItADate(words[0]))
+                if (isItADate(ref words[0]))
                 {
                     DateTime date = Convert.ToDateTime(words[0]);
                     string info = "";
 
                     // add rest of line
-                    foreach (var item in words)
+                    for (int j = 0; j < words.Length; j++)
                     {
-                        if (isItADate(item)) continue;
-                        info += item + "_";
+                        if (isItADate(ref words[j])) continue;
+                        info += words[j] + "_";
                     }
                     if (info.Length < 1 && lines.Length > i + 1)
                     {
@@ -58,25 +54,8 @@ namespace DaniaCalender_console
                         string extraLine = lines[i + addIndex].Replace('\t', ' ');
                         extraLine.Trim();
                         info += extraLine.Substring(0, Math.Min(20, extraLine.Length));
-                        //info += lines[i + 1].Substring(0, Math.Min(20, lines[i+1].Length));
-
                     }
                     OrderedResultsTuple.Add((date, info));
-                    //if (words.Length == 1 && lines.Length > i + 1)
-                    //{
-                    //    results.Add(lines[i + 1]);
-                    //}
-
-                    // trying to add to dic instead
-                    //DateTime dateTime;
-                    //DateTime.TryParse(words[0], out dateTime);
-
-                    //if (OrderedResults.ContainsKey(dateTime))
-                    //{
-                    //    continue;
-                    //}
-                    //string temp = string.Join(" ", words);
-                    //OrderedResults.Add(dateTime, temp);
                 }
             }
         }
@@ -87,6 +66,5 @@ namespace DaniaCalender_console
 
             return allLines;
         }
-
     }
 }
